@@ -1,0 +1,1 @@
+A `HeatMap` component that I developed for Adobe Flex while working at Esria.
