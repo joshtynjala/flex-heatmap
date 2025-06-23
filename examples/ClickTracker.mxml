@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="com.esria.controls.*"
+	layout="absolute">
+	
+	<mx:VBox id="container" horizontalCenter="0" top="10" verticalGap="20">
+		<mx:TitleWindow id="panel" width="400" height="250"
+			title="HeatMap Tester" showCloseButton="true" click="addItemToHeatMap()">
+		
+			<mx:ControlBar width="100%">
+				<mx:Button label="Click Me!"/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="1"/>
+				<mx:Button label="2"/>
+				<mx:Button label="3"/>
+			</mx:ControlBar>
+		</mx:TitleWindow>
+		<mx:Text width="100%" fontSize="18" color="0xffffff" text="Click on anything in the panel above to see the heatmap in action."/>
+	</mx:VBox>
+	
+	<controls:HeatMap id="heatmap" x="{container.x}" y="{container.y}" width="{container.width}" height="{container.height}"/>
+	
+	<mx:LinkButton bottom="10" right="10" label="Built by Esria" click="navigateToURL(new URLRequest('http://esria.com/'));"/>
+	
+	<mx:Script><![CDATA[
+		import mx.collections.ListCollectionView;
+		
+		private function addItemToHeatMap():void
+		{
+			var click:Point = new Point(panel.mouseX, panel.mouseY);
+			ListCollectionView(this.heatmap.dataProvider).addItem(click);
+		}
+			
+	]]></mx:Script>
+</mx:Application>

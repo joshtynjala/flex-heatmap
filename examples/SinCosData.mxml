@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="com.esria.controls.*"
+	layout="absolute">
+	
+	<mx:Metadata>
+		[SWF(backgroundColor=0x000000)]
+	</mx:Metadata>
+	
+	<controls:HeatMap id="heatmap" width="100%" height="100%"
+		weightField="weight" regionSize="15"
+		resize="generateData(1000, heatmap.regionSize)"/>
+	
+	<mx:LinkButton bottom="10" right="10" label="Built by Esria" click="navigateToURL(new URLRequest('http://esria.com/'));"/>
+	
+	<mx:Script><![CDATA[
+			
+		private function generateData(size:Number, regionSize:Number):void
+		{
+			var w:Number = this.heatmap.width;
+			var h:Number = this.heatmap.height;
+			
+			var data:Array = [];
+			for(var x:int = 0; x < w; x += regionSize)
+			{
+				for(var y:int = 0; y < h; y += regionSize)
+				{
+					var scaledX:Number = 2 * Math.PI * (x / size);
+					var scaledY:Number = 2 * Math.PI * (y / size);
+					var weight:Number = Math.sin(scaledX) * Math.cos(scaledY);
+					var item:Object = {x: x, y: y, weight: weight};
+					data.push(item);
+				}
+			}
+			this.heatmap.dataProvider = data;
+		}
+		
+	]]></mx:Script>
+	
+	<mx:Style>
+		Application
+		{
+			backgroundImage: null;
+			backgroundColor: #000000;
+		}
+		
+		LinkButton
+		{
+			color: #000000;
+			textRollOverColor: #ffffff;
+			rollOverColor: #000000;
+		}
+	</mx:Style>
+</mx:Application>
